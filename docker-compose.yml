@@ -17,6 +17,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  
+  redis:
+    image: redis:7
+    container_name: shop_analyzer_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - shop_analyzer_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
