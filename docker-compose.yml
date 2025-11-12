@@ -11,12 +11,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - shop_analyzer_network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      shop_analyzer_network:
+        aliases:
+          - db
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
   
   redis:
     image: redis:7
@@ -30,6 +32,26 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: simple-shop-analyzer:latest
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app:rw
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - DJANGO_SETTINGS_MODULE=shop_analyzer.settings
+    networks:
+      - shop_analyzer_network
+    restart: unless-stopped
 
 volumes:
   postgres_data:
