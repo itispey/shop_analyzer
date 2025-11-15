@@ -13,7 +13,7 @@ A Django-based REST API for analyzing shop data with support for products, custo
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/itispey/shop_analyzer.git
    cd shop_analyzer
    ```
 
@@ -69,7 +69,7 @@ A Django-based REST API for analyzing shop data with support for products, custo
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/itispey/shop_analyzer.git
    cd shop_analyzer
    ```
 
